@@ -1,7 +1,23 @@
 from django.db import models
 
+
+class BookInfoManager(models.Manager):
+    def all(self):
+        return super().filter(is_delete=False)
+
+    def create_book(self, title, pub_date):
+        book = self.model()
+        book.btitle = title
+        book.bpub_date = pub_date
+        book.bread = 0
+        book.bcomment = 0
+        book.is_delete = 0
+        book.save()
+        return book
+
+
 # Create your models here.
-#定义图书模型类BookInfo
+# 定义图书模型类BookInfo
 class BookInfo(models.Model):
     btitle = models.CharField(max_length=20, verbose_name='名称')
     bpub_date = models.DateField(verbose_name='发布日期')
@@ -18,7 +34,10 @@ class BookInfo(models.Model):
         """定义每个数据对象的显示信息"""
         return self.btitle
 
-#定义英雄模型类HeroInfo
+    objects = BookInfoManager()
+
+
+# 定义英雄模型类HeroInfo
 class HeroInfo(models.Model):
     GENDER_CHOICES = (
         (0, 'male'),
