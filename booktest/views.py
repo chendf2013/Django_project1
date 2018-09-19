@@ -22,16 +22,24 @@ def index(request):
 
 
 class Bookview(View):
+
     """表单测试"""
+    # 在forms中定义表单类
+    # 在当前文件导入表单类
+    # 初始化表单类
+    # 将表单类装入模板渲染
 
     def get(self, request):
         form = BookForm()
         return render(request, "booktest.html", {"form": form})
 
     def post(self, request):
-        form = BookForm(request.Post)
+        # 将获取到的表单内容传入表单类初始化表单(post大写)
+        form = BookForm(request.POST)
+        # 表单验证
         if form.is_valid():
-            print(form.changed_data)
+            # 输出表单的纯净内容
+            print(form.cleaned_data)
             return HttpResponse("ok")
         else:
             return render(request, "booktest.html", {"form": form})
