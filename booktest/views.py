@@ -8,6 +8,7 @@ from datetime import datetime
 from django.template import loader, RequestContext
 
 from booktest.models import BookInfo
+from booktest.serializer import BookInfoSerializer
 
 
 def index(request):
@@ -138,3 +139,35 @@ class BookRest(View):
             "id": book.id
         }
         return JsonResponse(book_dict)
+
+
+
+# 执行序列化的视图函数
+def serialize(request,pk):
+    # 从数据库中查询出模型对象
+    book = BookInfo.objects.get(pk=pk)
+    # queryset = BookInfo.objects.all()
+
+    # 初始化序列化器, 需要把模型对象传给序列化器
+    # serializer = BookInfoSerializer(book, many=True)
+    serializer = BookInfoSerializer(book)
+    # 执行序列化
+    print(serializer.data)
+    return HttpResponse("序列化成功!!!%s" % serializer.data)
+
+
+# 执行反序列化的视图函数
+def deserialize(request):
+    # 模拟客户端提交的数据
+    # data = {"btitle":"上海滩", "bpub_date":None, "id": 1}
+    # 初始化序列化器, 把需要反序列化的数据传入data参数中
+    data_str = request.body.decode()
+    data_dic = json.loads(data_str)
+    serializer = BookInfoSerializer(data=data_dic)
+    # 打印校验结果
+    print(serializer.is_valid())
+    # 如果校验失败, 打印错误信息, 如果成功, 返回{}
+    print(serializer.errors)
+    # 经过校验之后的干净数据, 如果校验不成功, 返回{}
+    print(serializer.validated_data)
+    return HttpResponse("反序列化结束!!!%s" % serializer.validated_data)
