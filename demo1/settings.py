@@ -141,3 +141,12 @@ CACHES = {
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
+# 配置DRF
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (  # 默认响应渲染类
+        # 'rest_framework.renderers.JSONRenderer',  # json渲染器
+        "render.DRFJSONRenderer",# 重写的json渲染器
+        'rest_framework.renderers.BrowsableAPIRenderer',  # 浏览API渲染器
+    )
+}
