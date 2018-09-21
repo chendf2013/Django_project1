@@ -34,7 +34,7 @@ class BookInfo(models.Model):
         """定义每个数据对象的显示信息"""
         return self.btitle
 
-    objects = BookInfoManager()
+    # objects = BookInfoManager()
 
 
 # 定义英雄模型类HeroInfo
