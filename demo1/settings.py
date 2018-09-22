@@ -150,5 +150,12 @@ REST_FRAMEWORK = {
         # 'rest_framework.renderers.JSONRenderer',  # json渲染器
         "render.DRFJSONRenderer",# 重写的json渲染器
         'rest_framework.renderers.BrowsableAPIRenderer',  # 浏览API渲染器
+    ),
+
+# 自上而下依次认证，若是认证没有通过，那就是匿名用户
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',   # 基本认证（后端不保存数据，用户在请求头中带上用户名和密码，因为不保存登录状态，需要每次都要登陆，基本不再使用）
+        'rest_framework.authentication.SessionAuthentication',  # session认证
     )
 }
