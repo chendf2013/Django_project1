@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     "booktest.apps.BooktestConfig",
+    "viewset.apps.ViewsetConfig",
+    "apiview.apps.ApiviewConfig"
 ]
 
 MIDDLEWARE = [
