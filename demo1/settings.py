@@ -28,14 +28,16 @@ INSTALLED_APPS = [
     "rest_framework",
     "booktest.apps.BooktestConfig",
     "viewset.apps.ViewsetConfig",
-    "apiview.apps.ApiviewConfig"
+    "apiview.apps.ApiviewConfig",
+    "user.apps.UserConfig"
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -136,6 +138,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
+
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -153,9 +156,8 @@ REST_FRAMEWORK = {
     ),
 
 # 自上而下依次认证，若是认证没有通过，那就是匿名用户
-
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',   # 基本认证（后端不保存数据，用户在请求头中带上用户名和密码，因为不保存登录状态，需要每次都要登陆，基本不再使用）
-        'rest_framework.authentication.SessionAuthentication',  # session认证
+        # 'rest_framework.authentication.BasicAuthentication',   # 基本认证（后端不保存数据，用户在请求头中带上用户名和密码，因为不保存登录状态，需要每次都要登陆，基本不再使用）
+        # 'rest_framework.authentication.SessionAuthentication',  # session认证
     )
 }
